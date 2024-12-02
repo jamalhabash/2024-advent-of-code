@@ -23,4 +23,9 @@ rec {
   );
   #  test = map abs new_list;
   result = lib.lists.foldl (a: b: a + b) 0 distances_list;
+  similarity0 = lib.lists.forEach sorted_parsed_right (
+    b: lib.lists.count (a: a == b) sorted_parsed_left
+  );
+  similarity1 = lib.lists.zipListsWith (a: b: a * b) sorted_parsed_right similarity0;
+  result2 = lib.lists.foldl (a: b: a + b) 0 similarity1;
 }
