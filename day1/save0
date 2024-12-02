@@ -1,0 +1,19 @@
+with import <nixpkgs> { }; 
+rec {
+
+input = lib.strings.splitString "\n" (lib.fileContents ./input);
+
+parser = element: line:
+  let
+    numbers = lib.splitString " " line;
+  in {
+    #left_number = lib.toInt (lib.elemAt numbers 0);
+    #right_number = lib.toInt (lib.elemAt numbers 3);
+    number = lib.toInt (lib.elemAt numbers element);
+  };
+
+parse_left = parser 0;
+parse_right = parser 1;
+
+parsed_left = map (parser 0) input;
+}
